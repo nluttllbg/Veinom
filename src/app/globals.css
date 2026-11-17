@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --color-preto: #050605;
+  --color-grafite: #0d100e;
+  --color-cinza: #151916;
+  --color-neon: #2be36a;
+  --color-neon-escuro: #14a84a;
+  --color-white: #ffffff;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --spacing-18: 4.5rem;
+}
+
+html {
+  background: var(--color-preto);
+  color: var(--color-white);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: clip;
+  background: var(--color-preto);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-neon);
+  color: var(--color-preto);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-neon);
+  outline-offset: 3px;
+}
+
+/* O logo é branco com brilho verde sobre preto: "screen" remove o fundo preto em qualquer superfície escura. */
+.logo-screen {
+  mix-blend-mode: screen;
+}
+
+/* Brilho neon nos títulos de destaque, como o logo */
+.text-glow {
+  text-shadow:
+    0 0 18px rgb(43 227 106 / 0.45),
+    0 0 42px rgb(43 227 106 / 0.2);
+}
+.box-glow {
+  box-shadow:
+    0 0 0 1px rgb(43 227 106 / 0.35),
+    0 0 28px rgb(43 227 106 / 0.18);
+}
+
+/* Tratamento fotográfico: as fotos já têm LED verde, só reforça contraste e escurece um pouco */
+.photo-treat {
+  filter: saturate(0.92) contrast(1.08) brightness(0.86);
+}
+.photo-overlay {
+  background: linear-gradient(180deg, rgb(5 6 5 / 0.05) 0%, rgb(5 6 5 / 0.55) 100%);
+}
+.photo-glow {
+  background: radial-gradient(ellipse at 70% 30%, rgb(43 227 106 / 0.16), transparent 60%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Mapa em tons escuros que ganha cor no hover/foco */
+.map-frame {
+  filter: grayscale(0.85) contrast(1.1) brightness(0.85);
+  transition: filter 0.6s ease;
+}
+.map-frame:hover,
+.map-frame:focus-visible {
+  filter: none;
+}
+
+/* Seção de impacto: frases empilhadas na mesma célula quando o pin está ativo */
+.impact-stack {
+  display: grid;
+  row-gap: 3rem;
+}
+.impact-stack[data-mode="pin"] .impact-phrase {
+  grid-area: 1 / 1;
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  background: var(--color-neon);
+  color: var(--color-preto);
+  padding: 0.85rem 1.25rem;
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/*
+ * Estados iniciais para evitar "flash" antes da hidratação.
+ * .js-motion só é adicionada (script inline) quando há JS e o usuário NÃO pediu movimento reduzido.
+ * Se o GSAP não rodar em 4s, .motion-fallback devolve tudo ao estado visível.
+ * Sem JS, nenhuma dessas regras se aplica e todo o conteúdo fica visível.
+ */
+.js-motion .reveal-load [data-word] {
+  transform: translateY(110%);
+}
+.js-motion .hero-pre,
+.js-motion .nav-pre,
+.js-motion .float-pre {
+  opacity: 0;
+}
+.js-motion.motion-fallback .reveal-load [data-word] {
+  transform: none;
+}
+.js-motion.motion-fallback .hero-pre,
+.js-motion.motion-fallback .nav-pre,
+.js-motion.motion-fallback .float-pre {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
