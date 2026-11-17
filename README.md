@@ -49,6 +49,10 @@ Ficam só em comentários `PENDENTE` no código (não aparecem no site): depoime
 
 Para domínio próprio ou Vercel, deixe `NEXT_PUBLIC_BASE_PATH` vazio e defina `NEXT_PUBLIC_SITE_URL` com a URL final (usada no SEO e nas imagens de compartilhamento).
 
+## Deploy na Cloudflare Pages
+
+O projeto `veinom-git` está conectado à branch `main` do GitHub. O build usa `npm run build`, publica a pasta `out/` e define `NEXT_PUBLIC_SITE_URL` como `https://veinom-git.pages.dev`. Cada push na branch `main` dispara uma nova publicação automaticamente.
+
 ## Regras do projeto
 
 Leia `CLAUDE.md` antes de editar: Lenis + GSAP para toda animação, duração mínima de 0.6s, respeito a `prefers-reduced-motion`, conteúdo visível sem JS e layout a partir de 360px.
